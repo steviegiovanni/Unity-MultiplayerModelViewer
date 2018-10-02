@@ -517,14 +517,14 @@ namespace ModelViewer
         void Update()
         {
             // test input without AR/VR setup
-            if (Input.GetKeyUp(KeyCode.Q))
+            /*if (Input.GetKeyUp(KeyCode.Q))
             {
-                Grab();
+                GrabCage();
             }
 
             if (Input.GetKeyUp(KeyCode.W))
             {
-                Release();
+                ReleaseCage();
             }
 
             if (Input.GetKeyUp(KeyCode.A))
@@ -541,7 +541,7 @@ namespace ModelViewer
             {
                 if (Root != null)
                     Debug.Log(Root.GameObject.name);
-            }
+            }*/
         }
 
         /// <summary>
