@@ -5,9 +5,16 @@ using UnityEngine;
 
 namespace Multiplayer
 {
+    /// <summary>
+    /// multiplayer interface that encapsulates the multi parts object class so that it will work with multiplayer
+    /// </summary>
     public class MultiuserMPOInterface : Photon.PunBehaviour, IPunObservable
     {
         public bool testData;
+
+        /// <summary>
+        /// the multiparts object associated with this interface
+        /// </summary>
         private MultiPartsObject _mpo;
         public MultiPartsObject MPO {
             get {
@@ -31,15 +38,12 @@ namespace Multiplayer
             }
         }
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
+        /// <summary>
+        /// transfer ownership when requested
+        /// </summary>
         public override void OnOwnershipRequest(object[] viewAndPlayer)
         {
-            MPO.ReleaseCage();
+            //MPO.ReleaseCage();
             
             if (photonView.isMine)
             {
@@ -64,24 +68,32 @@ namespace Multiplayer
             // test input without AR/VR setup
             if (Input.GetKeyUp(KeyCode.Q))
             {
-                if (!photonView.isMine)
-                   photonView.RequestOwnership();
-                MPO.GrabCage();
+                GrabCage();
             }
 
             if (Input.GetKeyUp(KeyCode.W))
             {
-                MPO.ReleaseCage();
+                ReleaseCage();
             }
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                MPO.Select();
+                Select();
             }
 
             if (Input.GetKeyUp(KeyCode.S))
             {
-                MPO.Deselect();
+                Deselect();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                Grab();
+            }
+
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                Release();
             }
 
             //}
@@ -92,6 +104,45 @@ namespace Multiplayer
         {
             Debug.Log(string.Format("Info: {0} {1} {2}", info.sender, info.photonView, info.timestamp));
             Debug.Log(a + " sends " + b);
+        }
+
+        public void GrabCage()
+        {
+            // take ownership of the cage
+            if (!photonView.isMine)
+                photonView.RequestOwnership();
+
+            MPO.GrabCage();
+        }
+
+        public void ReleaseCage()
+        {
+            MPO.ReleaseCage();
+        }
+
+        public void Select()
+        {
+            MPO.Select();
+        }
+
+        public void Deselect()
+        {
+            MPO.Deselect();
+        }
+
+        public void Grab()
+        {
+            // take ownership of each of the selected node
+            foreach(var node in MPO.SelectedNodes)
+            {
+                if (!node.GameObject.GetComponent<PhotonView>().isMine)
+                    node.GameObject.GetComponent<PhotonView>().RequestOwnership();
+            }
+            MPO.GrabIfPointingAt();
+        }
+
+        public void Release() {
+            MPO.Release();
         }
     }
 }

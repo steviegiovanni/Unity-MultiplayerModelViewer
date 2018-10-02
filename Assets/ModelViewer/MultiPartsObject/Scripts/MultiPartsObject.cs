@@ -865,7 +865,7 @@ namespace ModelViewer
 			//Vector3 oriPosRelativeToCage = node.P0 - CagePos;
 			Vector3 oriPosAfterSetup = this.transform.TransformPoint(node.P0);
 			if (Vector3.Distance (node.GameObject.transform.position,oriPosAfterSetup) < SnapThreshold) {
-				node.GameObject.transform.position = oriPosAfterSetup;
+                node.GameObject.transform.position = oriPosAfterSetup;
                 node.GameObject.transform.rotation = this.transform.rotation * node.R0;
 
                 if (DeselectOnSnapped)

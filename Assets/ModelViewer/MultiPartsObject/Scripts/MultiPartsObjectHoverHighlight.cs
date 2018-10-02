@@ -42,6 +42,8 @@ namespace ModelViewer
             yield return null;
         }
 
+        public GameObject empty; 
+
         // Use this for initialization
         void Start()
         {
@@ -75,7 +77,10 @@ namespace ModelViewer
                 previouslyHovered = hovered;
                 if (tempHighlight != null)
                     GameObject.Destroy(tempHighlight);
-                tempHighlight = Instantiate(hovered,hovered.transform.position,hovered.transform.rotation);
+                
+                //tempHighlight = Instantiate(hovered,hovered.transform.position,hovered.transform.rotation);
+                tempHighlight = Instantiate(empty, hovered.transform.position, hovered.transform.rotation);
+                tempHighlight.GetComponent<MeshFilter>().sharedMesh = hovered.GetComponent<MeshFilter>().sharedMesh;
                 tempHighlight.transform.localScale = hovered.transform.lossyScale;
                 // remove the collider of the highlight object and change the material to the highlight material
                 if (tempHighlight.GetComponent<Collider>() != null)

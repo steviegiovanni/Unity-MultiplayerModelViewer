@@ -324,6 +324,7 @@ namespace ModelViewer
             if(CurrentTaskId < Tasks.Count && CurrentTaskId != -1)
             {
                 Task task = Tasks[CurrentTaskId];
+                if (!task.Enabled) return;
                 if (task.GetType().Name != "MovingTask") return;
                 if (task.GameObject == node.GameObject)
                 {
@@ -341,6 +342,7 @@ namespace ModelViewer
             if (CurrentTaskId < Tasks.Count && CurrentTaskId != -1)
             {
                 Task task = Tasks[CurrentTaskId];
+                //if (!task.Enabled) return;
                 if (task.GetType().Name != "ClickingTask") return;
                 if (task.GameObject == node.GameObject)
                 {

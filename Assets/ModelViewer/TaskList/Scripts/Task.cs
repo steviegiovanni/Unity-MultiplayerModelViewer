@@ -92,6 +92,16 @@ namespace ModelViewer
         }
 
         /// <summary>
+        /// whether the task is enabled or not
+        /// </summary>
+        private bool _enabled = false;
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set { _enabled = value; }
+        }
+
+        /// <summary>
         /// check task is finished, override for different task behavior
         /// </summary>
         public virtual void CheckTask()
