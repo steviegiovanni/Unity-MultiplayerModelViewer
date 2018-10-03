@@ -12,6 +12,14 @@ namespace ModelViewer
     /// </summary>
     public class TaskList : MonoBehaviour, ISerializationCallbackReceiver
     {
+        [SerializeField]
+        private GameObject _hintPrefab;
+        public GameObject HintPrefab {
+            get {
+                return _hintPrefab;
+            }
+        }
+
         /// <summary>
         /// the multiparts object that this tasklist is associated with
         /// </summary>
@@ -194,6 +202,8 @@ namespace ModelViewer
         /// </summary>
         public void OnBeforeSerialize()
         {
+            if (serializedTasks == null)
+                serializedTasks = new List<SerializableTask>();
             serializedTasks.Clear();
             foreach (var task in Tasks)
                 serializedTasks.Add(new SerializableTask(task));

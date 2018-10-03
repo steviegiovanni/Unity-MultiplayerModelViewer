@@ -24,6 +24,20 @@ namespace Multiplayer
             }
         }
 
+        /// <summary>
+        /// the task list associated with this interface
+        /// </summary>
+        private TaskList _taskList;
+        public TaskList TaskList
+        {
+            get
+            {
+                if (_taskList == null)
+                    _taskList = GetComponent<TaskList>();
+                return _taskList;
+            }
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)
@@ -137,6 +151,10 @@ namespace Multiplayer
             {
                 if (!node.GameObject.GetComponent<PhotonView>().isMine)
                     node.GameObject.GetComponent<PhotonView>().RequestOwnership();
+                foreach (var task in TaskList.Tasks) {
+                    if (task.GameObject == node.GameObject)
+                        task.Enabled = true;
+                }
             }
             MPO.GrabIfPointingAt();
         }

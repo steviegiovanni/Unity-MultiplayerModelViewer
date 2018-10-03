@@ -100,7 +100,8 @@ namespace ModelViewer
         /// </summary>
         public override void DrawTaskHint()
         {
-            TaskList.Hint = GameObject.Instantiate(GameObject,TaskList.MPO.transform.TransformPoint(Position),TaskList.MPO.transform.rotation * Rotation);
+            TaskList.Hint = GameObject.Instantiate(TaskList.HintPrefab,TaskList.MPO.transform.TransformPoint(Position),TaskList.MPO.transform.rotation * Rotation);
+            TaskList.Hint.GetComponent<MeshFilter>().sharedMesh = GameObject.GetComponent<MeshFilter>().sharedMesh;
             TaskList.Hint.transform.localScale = GameObject.transform.lossyScale;
             if (TaskList.Hint.GetComponent<Collider>() != null)
                 GameObject.Destroy(TaskList.Hint.GetComponent<Collider>());

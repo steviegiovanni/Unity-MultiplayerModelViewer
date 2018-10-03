@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 532544602}
   - component: {fileID: 532544604}
   - component: {fileID: 532544605}
+  - component: {fileID: 532544606}
   m_Layer: 0
   m_Name: MultiPartsObject
   m_TagString: Untagged
@@ -286,10 +287,10 @@ MonoBehaviour:
   _highlightMaterial: {fileID: 2100000, guid: 77d32aaeaa2bb2148b9b830128c89160, type: 2}
   _silhouetteMaterial: {fileID: 0}
   _movableFrame: {fileID: 120679529}
-  _snap: 1
+  _snap: 0
   _snapThreshold: 0.5
-  _deselectOnSnapped: 1
-  _taskList: {fileID: 0}
+  _deselectOnSnapped: 0
+  _taskList: {fileID: 532544606}
   serializedNodes:
   - ChildCount: 2
     IndexOfFirstChild: 1
@@ -493,6 +494,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &532544606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 532544598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45707788982e4614d95e6d6e2c0ca9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hintPrefab: {fileID: 1517568461341704, guid: e0c202e31f7528f41a50eb79d4adb1bd,
+    type: 2}
+  _mpo: {fileID: 532544599}
+  _silhouetteMaterial: {fileID: 2100000, guid: 9d4f0f1434b49454bb3c9cb81019d95f, type: 2}
+  serializedTasks:
+  - TypeName: MovingTask
+    GameObject: {fileID: 1646314250}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    SnapThreshold: 0.1
+    TaskName: move the cube away
+    Description: 
+    MoveType: 1
+    GOName: Cube
+    TaskEvent:
+      TypeName: 
+      StartPos: {x: 0, y: 0, z: 0}
+      StartRotation: {x: 0, y: 0, z: 0, w: 0}
+      EndPos: {x: 0, y: 0, z: 0}
+      EndRotation: {x: 0, y: 0, z: 0, w: 0}
+  - TypeName: MovingTask
+    GameObject: {fileID: 1430918902}
+    Position: {x: 0, y: 1, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    SnapThreshold: 0.1
+    TaskName: move the sphere away
+    Description: 
+    MoveType: 1
+    GOName: Sphere
+    TaskEvent:
+      TypeName: 
+      StartPos: {x: 0, y: 0, z: 0}
+      StartRotation: {x: 0, y: 0, z: 0, w: 0}
+      EndPos: {x: 0, y: 0, z: 0}
+      EndRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,14 +778,26 @@ MonoBehaviour:
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  ownershipTransfer: 1
+  ownershipTransfer: 2
   ObservedComponents:
   - {fileID: 679064375}
+  - {fileID: 679064377}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 2
   instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &679064377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 679064373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269212a82d8a2ee4cb8659d45002d19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1430918902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1613434256147602, guid: 51fd77fdeb1e1214bbd346508b67f497,
@@ -775,14 +834,26 @@ MonoBehaviour:
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  ownershipTransfer: 1
+  ownershipTransfer: 2
   ObservedComponents:
   - {fileID: 1430918903}
+  - {fileID: 1430918905}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 4
   instantiationId: 4
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &1430918905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1430918902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269212a82d8a2ee4cb8659d45002d19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1646314250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1327722798945724, guid: 51fd77fdeb1e1214bbd346508b67f497,
@@ -819,14 +890,26 @@ MonoBehaviour:
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  ownershipTransfer: 1
+  ownershipTransfer: 2
   ObservedComponents:
   - {fileID: 1646314251}
+  - {fileID: 1646314253}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 3
   instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &1646314253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1646314250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269212a82d8a2ee4cb8659d45002d19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1925963814
 Prefab:
   m_ObjectHideFlags: 0
