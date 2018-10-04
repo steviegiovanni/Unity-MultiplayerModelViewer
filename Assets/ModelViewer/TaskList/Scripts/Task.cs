@@ -104,9 +104,10 @@ namespace ModelViewer
         /// <summary>
         /// check task is finished, override for different task behavior
         /// </summary>
-        public virtual void CheckTask()
+        public virtual bool CheckTask()
         {
-            Finished = true;
+            return true;
+            //Finished = true;
             /*if (!IsCurrentTask()) return;
             Debug.Log("Base check task");
             if (Finished)

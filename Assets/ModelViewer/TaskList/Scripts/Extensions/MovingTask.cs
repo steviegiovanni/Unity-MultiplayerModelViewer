@@ -81,10 +81,10 @@ namespace ModelViewer
         /// <summary>
         /// reimplementation of checktask. simply checks whether the position of the go is close to the goal position
         /// </summary>
-        public override void CheckTask()
+        public override bool CheckTask()
         {
-            Finished = (MoveType==MovingTaskType.MoveTo)?(Vector3.Distance(GameObject.transform.position, TaskList.MPO.transform.TransformPoint(Position)) <= SnapThreshold): (Vector3.Distance(GameObject.transform.position, TaskList.MPO.transform.TransformPoint(Position)) > SnapThreshold);
-            if (Finished)
+            bool isFinished = (MoveType==MovingTaskType.MoveTo)?(Vector3.Distance(GameObject.transform.position, TaskList.MPO.transform.TransformPoint(Position)) <= SnapThreshold): (Vector3.Distance(GameObject.transform.position, TaskList.MPO.transform.TransformPoint(Position)) > SnapThreshold);
+            if (isFinished)
             {
                 // snap to position if movetype is  moveto
                 if (MoveType == MovingTaskType.MoveTo)
@@ -93,6 +93,7 @@ namespace ModelViewer
                     GameObject.transform.rotation = TaskList.MPO.transform.rotation * Rotation;
                 }
             }
+            return isFinished;
         }
 
         /// <summary>

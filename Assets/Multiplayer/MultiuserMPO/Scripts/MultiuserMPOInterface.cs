@@ -43,12 +43,12 @@ namespace Multiplayer
             if (stream.isWriting)
             {
                 // we own this player: send the others our data
-                stream.SendNext(testData);
+                stream.SendNext(TaskList.CurrentTaskId);
             }
             else
             {
                 // network player, receive data
-                this.testData = (bool)stream.ReceiveNext();
+                TaskList.CurrentTaskId = (int)stream.ReceiveNext();
             }
         }
 
@@ -149,8 +149,8 @@ namespace Multiplayer
             // take ownership of each of the selected node
             foreach(var node in MPO.SelectedNodes)
             {
-                if (!node.GameObject.GetComponent<PhotonView>().isMine)
-                    node.GameObject.GetComponent<PhotonView>().RequestOwnership();
+                if (!node.GameObject.GetComponent<MultiuserMPOPartInterface>().photonView.isMine)
+                    node.GameObject.GetComponent<MultiuserMPOPartInterface>().photonView.RequestOwnership();
                 foreach (var task in TaskList.Tasks) {
                     if (task.GameObject == node.GameObject)
                         task.Enabled = true;

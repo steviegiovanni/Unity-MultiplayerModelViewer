@@ -460,7 +460,7 @@ MonoBehaviour:
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  ownershipTransfer: 1
+  ownershipTransfer: 2
   ObservedComponents:
   - {fileID: 532544605}
   - {fileID: 532544604}
@@ -540,6 +540,11 @@ MonoBehaviour:
       StartRotation: {x: 0, y: 0, z: 0, w: 0}
       EndPos: {x: 0, y: 0, z: 0}
       EndRotation: {x: 0, y: 0, z: 0, w: 0}
+  OnTaskFinished:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0

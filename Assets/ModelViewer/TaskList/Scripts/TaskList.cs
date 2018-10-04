@@ -102,6 +102,8 @@ namespace ModelViewer
             }
         }
 
+        public UnityEvent OnTaskFinished;
+
         /// <summary>
         /// find game object associated to a task based on its name (useful for when the multi parts object is replaced)
         /// </summary>
@@ -248,19 +250,72 @@ namespace ModelViewer
         {
             MPO.OnReleaseEvent.AddListener(CheckTaskOnRelease);
             MPO.OnSelectEvent.AddListener(CheckTaskOnSelect);
+            OnTaskFinished.AddListener(IncrementTaskId);
 
             StoreInitialPosAndRot();
             // register each task "CheckTask" function to onrelease of the appropriate node
+            ChangeLockOfAllTaskNodes(true);
+            CurrentTaskId = 0;
             StartCoroutine(TaskListCoroutine());
         }
 
         public IEnumerator TaskListCoroutine()
         {
+            while(CurrentTaskId != Tasks.Count)
+            {
+
+                if (CurrentTaskId == -1)
+                    yield return null;
+
+                int tempTaskId = CurrentTaskId;
+
+                // destroy previous hint if any
+                if (Hint != null)
+                    Destroy(Hint);
+
+                // get the task
+                Task task = Tasks[tempTaskId];
+
+                // unlock node
+                ChangeLockOfTaskNode(task, false);
+
+                // fire task start event
+                if (TaskStartListeners != null)
+                    TaskStartListeners.Invoke(task);
+
+                task.DrawTaskHint();
+                while (tempTaskId == CurrentTaskId)
+                {
+                    task.UpdateTaskHint();
+                    yield return null;
+                }
+
+                MPO.Release();
+                MPO.Deselect(task.GameObject);
+
+                ChangeLockOfTaskNode(task, true);
+
+                // destroy hint if any
+                if (Hint != null)
+                    Destroy(Hint);
+
+                // run task event coroutine if exists
+                if (task.TaskEvent != null)
+                    yield return StartCoroutine(task.TaskEvent.TaskEventCoroutine());
+
+                yield return null;
+            }
+
+            yield return null;
+        }
+
+        /*public IEnumerator TaskListCoroutine()
+        {
             // set current task id to -1 as we're going to increment by 1 on NextTask() on start
             CurrentTaskId = -1;
 
             // lock all nodes
-            ChangeLockOfAllTaskNodes(true);
+            ChangeLockOfAllTaskNodes(true);   
 
             foreach (var task in Tasks)
             {
@@ -303,7 +358,7 @@ namespace ModelViewer
 
             TaskStartListeners.Invoke(null);
             yield return null;
-        }
+        }*/
 
         void ChangeLockOfTaskNode(Task task, bool value)
         {
@@ -339,7 +394,7 @@ namespace ModelViewer
                 if (task.GameObject == node.GameObject)
                 {
                     // make sure we have a multiparts object
-                    task.CheckTask();
+                    if (task.CheckTask() && OnTaskFinished != null) OnTaskFinished.Invoke();
                 }
             }
         }
@@ -357,9 +412,14 @@ namespace ModelViewer
                 if (task.GameObject == node.GameObject)
                 {
                     // make sure we have a multiparts object
-                    task.CheckTask();
+                    if (task.CheckTask() && OnTaskFinished != null) OnTaskFinished.Invoke();
                 }
             }
+        }
+
+        public void IncrementTaskId()
+        {
+            CurrentTaskId++;
         }
     }
 }
