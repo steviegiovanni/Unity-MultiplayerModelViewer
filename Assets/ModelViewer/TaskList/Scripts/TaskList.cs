@@ -250,7 +250,7 @@ namespace ModelViewer
         {
             MPO.OnReleaseEvent.AddListener(CheckTaskOnRelease);
             MPO.OnSelectEvent.AddListener(CheckTaskOnSelect);
-            OnTaskFinished.AddListener(IncrementTaskId);
+            //OnTaskFinished.AddListener(IncrementTaskId);
 
             StoreInitialPosAndRot();
             // register each task "CheckTask" function to onrelease of the appropriate node
